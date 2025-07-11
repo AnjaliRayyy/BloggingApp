@@ -9,6 +9,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -169,9 +170,9 @@ export default function Signup() {
           <div className="mt-4 text-center">
             <p className="text-sm">
               Already have an account?{" "}
-              <a href="/login" className="font-semibold text-blue-600 hover:underline">
+              <Link to="/login" className="font-semibold text-blue-600 hover:underline">
                 Log in
-              </a>
+              </Link>
             </p>
           </div>
         </div>
