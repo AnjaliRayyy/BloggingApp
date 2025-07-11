@@ -1,19 +1,31 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const connectDB=require("./config.js/db")
+const connectDB=require("./config/db");
+const cookieParser=require("cookie-parser")
+
+//Environment Variables
 const PORT = process.env.PORT || 5000;
 const URI=process.env.URI;
 
-//Middlewares
+//Importing Router
+const userRouter=require('./routes/user.js')
 
-//Routes
-app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to the Blogging App API</h1>`);
-});
+//<---------------------------Middlewares---------------------------->
+app.use(cors({
+    origin: 'http://localhost:5173', // Adjust this to your client URL
+    credentials: true
+}));
+app.use(express.json());
+app.use(express.urlencoded())
+app.use(cookieParser());
 
-//MongoDB Connection
+//<------------------------------Routes---------------------------->
+app.use('/user',userRouter)
+
+//<-------------------------MongoDB Connection-------------------->
 connectDB(URI)
 .then(()=>{
     console.log('Connected to MongoDB');
@@ -21,7 +33,7 @@ connectDB(URI)
     console.error('Error connecting to MongoDB:', error);
 });
 
-//Starting the server
+//<------------------------Starting the server---------------------->
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

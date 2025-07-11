@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Navbar from './components/Navbar'
+
 import './index.css'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1 className='text-4xl text-center font-bold bg-amber-200 text-slate-950'>Hello World</h1>
+      {/* <Navbar></Navbar> */}
+      <Signup/>
     </>
   )
 }
