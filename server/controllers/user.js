@@ -4,11 +4,14 @@ async function createNewUser(req, res) {
     try {
         const { username, email, password, profileImageURL } = req.body;
         if (!username || !email || !password) {
-            return res.status(400).json({ message: "Please fill in all fields" });
+            return res.status(400).json({ msg: "Please fill in all fields" });
         }
-        const user = new User({ username, email, password, profileImageURL });
-        await user.save();
-        res.json({ msg: "User registered successfully" })
+        else{
+            
+            const user = new User({ username, email, password, profileImageURL });
+            await user.save();
+            res.json({ msg: "User registered successfully" })
+        }
     }
     catch (err) {
         res.json({ msg: "Error in registering user", err: err.message })

@@ -10,6 +10,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +18,9 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+ 
+
+  const navigate=useNavigate();
 
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -32,7 +35,7 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMsg("");
+
 
     if (!username || !email || !password) {
       toast.error("Please fill in all required fields.");
@@ -62,6 +65,7 @@ export default function Signup() {
         setEmail("");
         setPassword("");
         setProfilePic(null);
+        navigate("/login");
       } else {
         toast.error(data.msg || "Failed to register user.");
       }
