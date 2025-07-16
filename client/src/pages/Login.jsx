@@ -8,9 +8,10 @@ import {
   Paper,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password,setPassword]=useState("");
@@ -36,6 +37,7 @@ const Login = () => {
           email,
           password,
         }),
+        credentials: 'include',
       });
 
       const data = await response.json();
@@ -44,6 +46,7 @@ const Login = () => {
         toast.success(data.msg);
         setEmail("");
         setPassword("");
+        navigate("/");
       }
       else
       {
@@ -52,6 +55,7 @@ const Login = () => {
     } catch (error) {
       toast.error(error.msg);
     }}
+
 
     return (
       <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-r from-blue-100 to-white">
