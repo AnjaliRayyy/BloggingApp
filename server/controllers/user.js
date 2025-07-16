@@ -23,7 +23,8 @@ async function handleUserLogin(req,res){
         const isValidPassword=await user.comparePassword(password);
         if(!isValidPassword){res.status(401).json({msg:"Invalid credentials"})}
         const token=await authenticateToken(user);
-        res.cookie("uid",token,{expires : new Date(Date.now()+3600000),httpOnly:true, });
+        res.cookie("uid",token,{httpOnly: true, expires : new Date(Date.now()+3600000),httpOnly:true, });
+        // res.set('uid', token);
         res.json({msg:"User logged in successfully",token})
     }
     catch(err){
