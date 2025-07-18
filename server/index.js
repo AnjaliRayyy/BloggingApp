@@ -12,6 +12,7 @@ const URI=process.env.URI;
 
 //Importing Router
 const userRouter=require('./routes/user.js')
+const blogRouter=require('./routes/blog.js')
 
 //<---------------------------Middlewares---------------------------->
 app.use(cors({
@@ -24,6 +25,7 @@ app.use(cookieParser());
 
 //<------------------------------Routes---------------------------->
 app.use('/user',userRouter)
+app.use('/blog',blogRouter)
 
 //<-------------------------MongoDB Connection-------------------->
 connectDB(URI)

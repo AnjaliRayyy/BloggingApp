@@ -14,9 +14,15 @@ const blogSchema = new mongoose.Schema({
         required : true,
         default : "abcd",
     },
+    category: {
+      type: String,
+      required: true,
+      enum: ['Tech', 'Health', 'Lifestyle', 'Education', 'Business', 'Travel', 'Other'],
+    },
+
     createdBy : {
-        type : Schema.Types.ObjectId,
-        ref: "user"
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "users"
     }    
 },{timestamps:true})
 
