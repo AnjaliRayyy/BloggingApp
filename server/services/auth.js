@@ -1,27 +1,27 @@
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-function authenticateToken(user){
-    const payload={
-        id :user._id,
-        username : user.username,
-        email : user.email,
-        role : user.role
+function authenticateToken(user) {
+    const payload = {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
     }
-    return jwt.sign(payload,process.env.SECRET_KEY,{expiresIn : '1h'});
+    return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
 }
 
-function vertifyToken(token){
-    try{
-        if(!token) return null;
-        return jwt.verify(token,process.env.SECRET_KEY,function(err){
-            if(err){
-                console.log("Error : ",err.message);
-            }
-        });
+function verifyToken(token) {
+    console.log("Verify token was called")
+    console.log(token)
+    try {
+        if (!token) return null;
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        return decoded;
     }
-    catch(err){
+    catch (err) {
+        console.log("Error : ", err.message);
         return null;
     }
 }
 
-module.exports={authenticateToken , vertifyToken }
+module.exports = { authenticateToken, verifyToken }
