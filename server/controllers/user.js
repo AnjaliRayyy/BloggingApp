@@ -7,9 +7,10 @@ async function createNewUser(req, res) {
             return res.status(400).json({ msg: "Please fill in all fields" });
         }
         else{
-            
-            const user = new User({ username, email, password, profileImageURL });
-            await user.save();
+            const user=await User.find({email})
+            if(user) return res.status(400).json({ msg: "Account already exists, please login" })
+            const newUser = new User({ username, email, password, profileImageURL });
+            await newUser.save();
             res.json({ msg: "User registered successfully" })
         }
     }
