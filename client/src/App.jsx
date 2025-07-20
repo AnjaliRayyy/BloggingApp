@@ -4,7 +4,8 @@ import './index.css'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
-import CreateBlog  from './pages/Blog'
+import CreateBlog  from './pages/CreateBlog'
+import BlogPage from './pages/BlogPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/blog" index element={<CreateBlog/>} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>}/>
+      <Route path="/categories/:category" element={<BlogPage />} />
     </Routes>
    </BrowserRouter>
     </> 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
-  const categories = ["Technology", "Lifestyle", "Education", "Travel", "Food"];
+  const categories = ['Tech', 'Health', 'Lifestyle', 'Education', 'Business', 'Travel', 'Other'];
   const dropdownContainerRef = useRef(null);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function Navbar() {
             {categories.map((category) => (
               <Link
                 key={category}
-                to={`/categories/${category.toLowerCase()}`}
+                to={`/categories/${category}`}
                 className="block py-2 px-3 text-gray-800 hover:bg-amber-100 hover:text-amber-700 rounded-md transition-colors duration-150"
               >
                 {category}

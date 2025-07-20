@@ -1,5 +1,6 @@
 const Blog=require('../models/blog')
 
+//Logic for creating new blogs
 async function handleNewBlog(req,res) {
     try {
         const { title, content, coverPageUrl, category } = req.body;
@@ -18,4 +19,22 @@ async function handleNewBlog(req,res) {
     }
 }
 
-module.exports={handleNewBlog}
+
+//Logic for fetching blogs by category
+async function fetchBlogByCategory(req,res){
+    const {category}=req.query
+    if(!category) return res.status(400).json({msg:"Please provide category"})
+    try
+    {
+        const blogs=await Blog.find({category:category})
+        if(!blogs.length) return res.status(404).json({msg:"No blogs found for this category"})
+        return res.status(200).json(blogs)
+    }
+    catch(err)
+    {
+        console.log(err)
+        return res.status(500).json({msg:"Failed to fetch blogs"})
+    }
+}
+
+module.exports={handleNewBlog, fetchBlogByCategory}
