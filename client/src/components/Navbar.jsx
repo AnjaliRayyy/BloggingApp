@@ -29,7 +29,7 @@ export default function Navbar() {
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="w-full px-6 py-4 flex justify-between items-center text-amber-700 fixed top-0 z-50 backdrop-blur-md bg-transparent"
+      className="w-full px-6 py-4 flex justify-between items-center bg-transparent text-amber-700 sticky top-0 z-50 backdrop-blur-md "
     >
       <div className="text-2xl font-semibold tracking-tight text-amber-700">
         BlogVerse

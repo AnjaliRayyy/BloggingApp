@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@mui/material";
 import { BookOpenText, PencilLine, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
-import image1 from "../images/image1.webp";
+import blog from "../images/blog.avif";
 const banners = [
   {
     image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1400&q=80",
@@ -26,7 +26,7 @@ const banners = [
     subtitle: "Explore countless stories from creators across the globe."
   },
   {
-    image: "https://images.unsplash.com/photo-1532619675605-1e4b7a55aa58?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Grow Your Voice",
     subtitle: "Share ideas that matter and grow your online presence."
   },
@@ -66,7 +66,7 @@ export default function Home() {
         <img
           src={banners[currentSlide].image}
           alt="Banner"
-          className="w-full h-full object-cover transition-all duration-500"
+          className="w-full h-full object-cover transition-all duration-400"
         />
         <motion.div
           key={currentSlide}
@@ -165,9 +165,9 @@ export default function Home() {
           transition={{ duration: 0.7 }}
         >
           <img
-            src={image1}
+            src={blog}
             alt="Blogging Illustration"
-            className="w-[300px] md:w-[450px]"
+            className="w-[300px] md:w-[450px] rounded-2xl"
           />
         </motion.div>
       </div>
