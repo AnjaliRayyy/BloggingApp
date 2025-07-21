@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import CreateBlog  from './pages/CreateBlog'
 import BlogPage from './pages/BlogPage'
+import BlogDetail from './pages/BlogDetail'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/categories/:category" element={<BlogPage />} />
+      <Route path="/blog/:slug" element={<BlogDetail/>}/>
     </Routes>
    </BrowserRouter>
     </> 

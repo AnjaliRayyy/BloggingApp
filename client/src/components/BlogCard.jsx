@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Calendar, User } from "lucide-react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function BlogCard({ blog }) {
   const {
@@ -10,6 +11,7 @@ export default function BlogCard({ blog }) {
     categories,
     createdAt,
     createdBy,
+    slug,
   } = blog;
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
@@ -56,6 +58,16 @@ export default function BlogCard({ blog }) {
           {content}
         </p>
 
+        {/* Read More Link */}
+        <div>
+          <Link
+            to={`/blog/${slug}`}
+            className="text-peach-600 hover:underline dark:text-peach-400 font-semibold"
+          >
+            Read More
+          </Link>
+        </div>
+
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
           {categories?.map((category, i) => (
@@ -81,5 +93,6 @@ BlogCard.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.string),
     createdAt: PropTypes.string.isRequired,
     createdBy: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
   }),
 };

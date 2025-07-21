@@ -19,11 +19,16 @@ const blogSchema = new mongoose.Schema({
       required: true,
       enum: ['Tech', 'Health', 'Lifestyle', 'Education', 'Business', 'Travel', 'Other'],
     },
+    
+    slug : {
+        type : String,
+        unique : true,
+    },
 
     createdBy : {
         type : mongoose.Schema.Types.ObjectId,
         ref: "users"
-    }    
+    },
 },{timestamps:true})
 
 
