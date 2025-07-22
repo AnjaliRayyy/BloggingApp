@@ -5,13 +5,7 @@ import { SendHorizontal } from "lucide-react";
 import { toast } from "react-toastify";
 
 const categories = [
-  "Tech",
-  "Health",
-  "Lifestyle",
-  "Education",
-  "Business",
-  "Travel",
-  "Other",
+  "Tech", "Health", "Lifestyle", "Education", "Business", "Travel", "Other",
 ];
 
 export default function CreateBlog() {
@@ -28,53 +22,36 @@ export default function CreateBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Blog Submitted:", form);
-
     try {
       const response = await fetch("http://localhost:8000/blog/add-new", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          title : form.title,
-          content : form.content,
-          coverPageUrl : form.coverPageUrl,
-          category : form.category,
-        }),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
       });
       const data = await response.json();
-      if(response.ok) 
-      {
+      if (response.ok) {
         toast.success(data.msg);
-        setForm({
-            title : "",
-            content : "",
-            coverPageUrl : "",
-            category : "",
-        })
-      }
-      else
-      {
+        setForm({ title: "", content: "", coverPageUrl: "", category: "" });
+      } else {
         toast.error("Please login to create blog");
       }
     } catch (err) {
-        console.error(err);
-        toast.error(err)
+      console.error(err);
+      toast.error("Something went wrong");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] px-6 py-20 md:px-24 text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-[#fdeee8] to-[#f9d8c3] px-6 py-20 md:px-24 text-[#4a2e2b]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white shadow-xl rounded-2xl p-8 max-w-4xl mx-auto w-full"
+        className="bg-white/80 backdrop-blur-md shadow-2xl rounded-2xl p-8 max-w-4xl mx-auto w-full"
       >
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-blue-700">
-          Write a New Blog
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#6e3b2e]">
+          ✍️ Publish a New Blog
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -86,6 +63,7 @@ export default function CreateBlog() {
             variant="outlined"
             value={form.title}
             onChange={handleChange}
+            InputLabelProps={{ style: { color: "#4a2e2b" } }}
           />
 
           <TextField
@@ -96,6 +74,7 @@ export default function CreateBlog() {
             variant="outlined"
             value={form.coverPageUrl}
             onChange={handleChange}
+            InputLabelProps={{ style: { color: "#4a2e2b" } }}
           />
 
           <TextField
@@ -108,6 +87,7 @@ export default function CreateBlog() {
             variant="outlined"
             value={form.content}
             onChange={handleChange}
+            InputLabelProps={{ style: { color: "#4a2e2b" } }}
           />
 
           <TextField
@@ -118,6 +98,7 @@ export default function CreateBlog() {
             required
             value={form.category}
             onChange={handleChange}
+            InputLabelProps={{ style: { color: "#4a2e2b" } }}
           >
             {categories.map((cat) => (
               <MenuItem key={cat} value={cat}>
@@ -127,7 +108,7 @@ export default function CreateBlog() {
           </TextField>
 
           <motion.div
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="flex justify-center"
           >
@@ -135,7 +116,14 @@ export default function CreateBlog() {
               type="submit"
               variant="contained"
               endIcon={<SendHorizontal size={18} />}
-              sx={{ borderRadius: "8px", textTransform: "none", px: 4 }}
+              sx={{
+                backgroundColor: "#d88f74",
+                '&:hover': { backgroundColor: "#c97c60" },
+                borderRadius: "10px",
+                textTransform: "none",
+                px: 4,
+                my: 2
+              }}
             >
               Publish Blog
             </Button>
