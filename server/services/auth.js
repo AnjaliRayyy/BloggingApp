@@ -11,8 +11,7 @@ function authenticateToken(user) {
 }
 
 function verifyToken(token) {
-    console.log("Verify token was called")
-    console.log(token)
+    
     try {
         if (!token) return null;
         const decoded = jwt.verify(token, process.env.SECRET_KEY);

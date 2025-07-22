@@ -46,7 +46,7 @@ async function fetchBlogBySlug(req,res){
     const {slug}=req.params;
     try{
         const blog=await Blog.findOne({slug:slug})
-        if(!blog) return res.status(400).json({msg : "Blog not found"})
+        if(!blog) return res.status(404).json({msg : "Blog not found"})
         else   return res.status(200).json(blog)
     }
     catch(err)

@@ -57,7 +57,7 @@ export default function CreateBlog() {
       }
       else
       {
-        toast.error(data.msg);
+        toast.error("Please login to create blog");
       }
     } catch (err) {
         console.error(err);
