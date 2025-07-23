@@ -2,7 +2,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { FaExclamationTriangle } from "react-icons/fa";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -10,6 +9,40 @@ const BlogDetail = () => {
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [commentForm, setCommentForm] = useState({ name: "", comment: "" });
+const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+const handleCommentSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  try {
+    const res = await fetch(`http://localhost:8000/blog/${slug}/comment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(commentForm),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      setBlog((prev) => ({
+        ...prev,
+        comments: [...prev.comments, commentForm],
+      }));
+      setCommentForm({ name: "", comment: "" });
+      toast.success("Comment added!");
+    } else {
+      toast.error(data.msg);
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to post comment.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -47,31 +80,30 @@ const BlogDetail = () => {
     );
   }
 
-if (error) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#fcefe8] to-[#e6d0c3] dark:from-[#3c2b28] dark:to-[#5b3d3a] text-[#4a2e2b] dark:text-[#fbeee0] px-4 text-center"
-    >
-      {/* <FaExclamationTriangle className="text-[#9b2c2c] dark:text-[#fbd5d5] text-6xl mb-6 animate-bounce" /> */}
-      <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-        Oops! Something went wrong
-      </h2>
-      <p className="text-lg mb-6 max-w-md">
-        {error || "We couldn't load the blog you're looking for."}
-      </p>
-      <button
-        onClick={() => navigate("/")}
-        className="bg-[#d98f6a] hover:bg-[#c0785b] text-white px-6 py-2 rounded-md shadow transition"
+  if (error) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#fcefe8] to-[#e6d0c3] dark:from-[#3c2b28] dark:to-[#5b3d3a] text-[#4a2e2b] dark:text-[#fbeee0] px-4 text-center"
       >
-        Go to Homepage
-      </button>
-    </motion.div>
-  );
-}
-
+        {/* <FaExclamationTriangle className="text-[#9b2c2c] dark:text-[#fbd5d5] text-6xl mb-6 animate-bounce" /> */}
+        <h2 className="text-2xl md:text-3xl font-semibold mb-4">
+          Oops! Something went wrong
+        </h2>
+        <p className="text-lg mb-6 max-w-md">
+          {error || "We couldn't load the blog you're looking for."}
+        </p>
+        <button
+          onClick={() => navigate("/")}
+          className="bg-[#d98f6a] hover:bg-[#c0785b] text-white px-6 py-2 rounded-md shadow transition"
+        >
+          Go to Homepage
+        </button>
+      </motion.div>
+    );
+  }
 
   if (!blog) {
     return (
@@ -117,6 +149,69 @@ if (error) {
             </span>
           )}
         </div>
+
+        <div className="h-1 bg-amber-950 w-[100%] mt-8 rounded-3xl"></div>
+
+        {/* <---------------Comment Section-------------> */}
+        <div className="mt-12">
+  <h2 className="text-2xl font-semibold mb-4 text-[#4a2e2b]">💬 Comments</h2>
+
+  {/* Comment Form */}
+  <form onSubmit={handleCommentSubmit} className="space-y-4 mb-8">
+    <input
+      type="text"
+      name="name"
+      required
+      value={commentForm.name}
+      onChange={(e) =>
+        setCommentForm({ ...commentForm, name: e.target.value })
+      }
+      placeholder="Your Name"
+      className="w-full px-4 py-2 border rounded-md bg-[#fff9f6] text-[#4a2e2b]"
+    />
+    <textarea
+      name="comment"
+      required
+      rows="3"
+      value={commentForm.comment}
+      onChange={(e) =>
+        setCommentForm({ ...commentForm, comment: e.target.value })
+      }
+      placeholder="Your Comment..."
+      className="w-full px-4 py-2 border rounded-md bg-[#fff9f6] text-[#4a2e2b]"
+    />
+    <motion.button
+      type="submit"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.96 }}
+      disabled={isSubmitting}
+      className="bg-[#d88f74] text-white px-6 py-2 rounded-md hover:bg-[#c97c60] transition"
+    >
+      {isSubmitting ? "Posting..." : "Post Comment"}
+    </motion.button>
+  </form>
+
+  {/* Display Comments */}
+  <div className="space-y-4">
+    {blog.comments?.length > 0 ? (
+      blog.comments.map((c, i) => (
+        <div
+          key={i}
+          className="bg-white/60 backdrop-blur-sm p-4 rounded-md shadow-md"
+        >
+          <p className="font-semibold text-[#4a2e2b]">{c.name}</p>
+          <p className="text-sm text-[#4a2e2b]">{c.comment}</p>
+          <p className="text-xs text-gray-500">
+            {new Date(c.createdAt).toLocaleDateString()}
+          </p>
+        </div>
+      ))
+    ) : (
+      <p className="text-gray-500 italic">No comments yet.</p>
+    )}
+  </div>
+</div>
+
       </motion.div>
     </div>
   );

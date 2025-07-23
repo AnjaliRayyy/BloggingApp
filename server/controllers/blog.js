@@ -56,4 +56,23 @@ async function fetchBlogBySlug(req,res){
     }
 }
 
-module.exports={handleNewBlog, fetchBlogByCategory, fetchBlogBySlug}
+// Logic for saving comments
+async function handleNewComment (req, res){
+  const { slug } = req.params;
+  const { name, comment } = req.body;
+
+  try {
+    const blog = await Blog.findOne({ slug });
+    if (!blog) return res.status(404).json({ msg: "Blog not found" });
+
+    blog.comments.push({ name, comment });
+    await blog.save();
+
+    res.status(201).json({ msg: "Comment added successfully", blog });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
+
+module.exports={handleNewBlog, fetchBlogByCategory, fetchBlogBySlug, handleNewComment}
