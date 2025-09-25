@@ -45,7 +45,7 @@ export default function BlogCard({ blog }) {
         <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-2">
             <User size={16} />
-            <span>{createdBy}</span>
+            <span>{createdBy.username}</span>
           </div>
           <div className="flex items-center gap-2">
             <Calendar size={16} />

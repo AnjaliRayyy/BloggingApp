@@ -29,13 +29,13 @@ const blogSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
-    comments: [
-  {
-    name: { type: String, required: true },
-    comment: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now }
-  }
-]
+  //   comments: [
+  // {
+  //   name: { type: String, required: true },
+  //   comment: { type: String, required: true },
+  //   createdAt: { type: Date, default: Date.now }
+  // }
+// ]
 },{timestamps:true})
 
 

@@ -133,7 +133,7 @@ const handleCommentSubmit = async (e) => {
 
         <div className="text-sm text-[#4a2e2b] mb-6">
           <p>
-            By <span className="font-semibold">{blog.createdBy}</span>
+            By <span className="font-semibold">{blog.createdBy.username}</span>
           </p>
           <p>Published on {new Date(blog.createdAt).toLocaleDateString()}</p>
         </div>

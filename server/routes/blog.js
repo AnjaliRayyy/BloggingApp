@@ -7,7 +7,7 @@ const {checkForAuthentication, isLoggedIn}=require('../middlewares/auth')
 router.post('/add-new',checkForAuthentication,handleNewBlog)
 router.get('/',fetchBlogByCategory)
 router.get('/:slug',isLoggedIn,fetchBlogBySlug)
-router.post("/:slug/comment", handleNewComment);
+// router.post("/:slug/comment", handleNewComment);
 
 
 module.exports=router;

@@ -45,7 +45,7 @@ async function fetchBlogByCategory(req,res){
 async function fetchBlogBySlug(req,res){
     const {slug}=req.params;
     try{
-        const blog=await Blog.findOne({slug:slug})
+        const blog=await Blog.findOne({slug:slug}).populate("createdBy")
         if(!blog) return res.status(404).json({msg : "Blog not found"})
         else   return res.status(200).json(blog)
     }
