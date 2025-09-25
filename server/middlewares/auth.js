@@ -19,7 +19,7 @@ function checkForAuthentication(req, res, next) {
 }
 
 function isLoggedIn(req,res,next){
-    console.log(req.cookies)
+    //console.log(req.cookies)
     const userUid=req.cookies?.uid;
     if(!userUid) {
         console.log("UID not found")
