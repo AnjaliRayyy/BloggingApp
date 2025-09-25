@@ -9,6 +9,7 @@ const cookieParser=require("cookie-parser")
 //Environment Variables
 const PORT = process.env.PORT || 5000;
 const URI=process.env.URI;
+const CLIENT_URL=process.env.CLIENT_URL;
 
 //Importing Router
 const userRouter=require('./routes/user.js')
@@ -17,7 +18,7 @@ const commentRouter=require('./routes/comment.js')
 
 //<---------------------------Middlewares---------------------------->
 app.use(cors({
-    origin: 'http://localhost:5173', // Adjust this to your client URL
+    origin: CLIENT_URL, // Adjust this to your client URL
     credentials: true
 }));
 app.use(express.json());
@@ -32,7 +33,7 @@ app.use('/comment',commentRouter)
 //<-------------------------MongoDB Connection-------------------->
 connectDB(URI)
 .then(()=>{
-    console.log('Connected to MongoDB');
+    console.log(`Connected to MongoDB : ${URI}`);
 }).catch((error)=>{
     console.error('Error connecting to MongoDB:', error);
 });
