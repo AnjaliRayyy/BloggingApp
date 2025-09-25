@@ -23,7 +23,7 @@ export default function CreateBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/blog/add-new", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog/add-new`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

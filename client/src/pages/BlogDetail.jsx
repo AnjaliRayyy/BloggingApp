@@ -18,7 +18,7 @@ const handleCommentSubmit = async (e) => {
   setIsSubmitting(true);
 
   try {
-    const res = await fetch(`http://localhost:8000/blog/${slug}/comment`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog/${slug}/comment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(commentForm),

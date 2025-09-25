@@ -10,7 +10,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/blog?category=${category}`);
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog?category=${category}`);
         const data = await res.json();
         setBlogs(Array.isArray(data) ? data : []);
       } catch (err) {
