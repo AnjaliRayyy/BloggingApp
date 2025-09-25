@@ -10,6 +10,7 @@ function checkForAuthentication(req, res, next) {
             return next();
         } else {
             console.log("Invalid user token")
+            res.clearCookie("uid");
             return res.status(401).json({msg : "Unauthorized access"})
         }
     } else {
@@ -23,13 +24,17 @@ function isLoggedIn(req,res,next){
     const userUid=req.cookies?.uid;
     if(!userUid) {
         console.log("UID not found")
-        return res.status(401).json({msg : "Please login to access more content"})
+        return res.status(401).json({msg : "Unauthorized access"})
     }
     else{
         const user=verifyToken(userUid);
-        if(user) return next();
+        if(user) {
+            req.user = user;
+            return next();
+        }
         else {
             console.log("Invalid token")
+            res.clearCookie("uid");
             return res.status(401).json({msg : "Unauthorized access"})}
     }
 }
