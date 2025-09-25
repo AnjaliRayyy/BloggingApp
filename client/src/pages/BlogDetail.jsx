@@ -47,7 +47,7 @@ const handleCommentSubmit = async (e) => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/${slug}`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/blog/${slug}`, {
           credentials: "include",
         });
         const data = await res.json();
